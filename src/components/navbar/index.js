@@ -1,5 +1,5 @@
 import React from 'react'
-import { Nav, NavLinkContainer, NavLink, Logo, LogoImage } from "./styles"
+import { Nav, NavLinkContainer, NavLink } from "./styles"
 
 function NavBar() {
   return (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { Container, SearchField, EventContainer, EventItemButton, EventItemText, Event } from "./styles"
+import { Container, SearchField, EventContainer, EventItemButton, EventItemText, Event, NoEventInfo } from "./styles"
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
@@ -12,7 +12,7 @@ const ListOfEvents = () => {
     const { store, setStore, actions } = useContext(AppContext);
 
     let fuse = new Fuse(store.events, {
-        keys: ["name", "description"],
+        keys: ["name"],
     });
 
     useEffect(() => {
@@ -90,9 +90,9 @@ const ListOfEvents = () => {
                         </Event>
                     )
                 })
-                    : <div>No Events</div>}
+                    : <NoEventInfo>No Events here. Feel free to create a new one.</NoEventInfo>}
             </EventContainer>
-        </Container>
+        </Container >
     )
 }
 

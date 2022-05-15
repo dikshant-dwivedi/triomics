@@ -1,5 +1,5 @@
 import React, { useRef, useContext, useState } from 'react'
-import { Container, Activity, ActivityContainer, ActivityContent, Heading } from './styles'
+import { Container, Activity, ActivityContainer, ActivityContent, Heading, DragDropInfo } from './styles'
 import { CardActionArea } from '@mui/material'
 import { AppContext } from './../../AppContext';
 import Snackbar from '@mui/material/Snackbar';
@@ -22,7 +22,7 @@ const ActivityDrop = () => {
         e.preventDefault()
         const card_info = JSON.parse(e.dataTransfer.getData('card_info'))
         let id = parseInt(card_info.id)
-        setStore({ ...store, dropActivities: store.dropActivities.concat(card_info), activities: store.activities.filter(a => a.id !== id) })
+        setStore({ ...store, dropActivities: [card_info].concat(store.dropActivities), activities: store.activities.filter(a => a.id !== id) })
         setActAlert(true);
         if (ref.current) {
             const offsetBottom = ref.current.offsetTop + ref.current.offsetHeight;
@@ -65,6 +65,7 @@ const ActivityDrop = () => {
                         draggable="true"
                         onDragStart={dragStart}
                         onDragEnd={cardDragEnd}
+                        elevation={3}
                     >
                         <CardActionArea>
                             <ActivityContent>
@@ -72,7 +73,7 @@ const ActivityDrop = () => {
                                 <p>{activity.description}</p>
                             </ActivityContent>
                         </CardActionArea>
-                    </Activity>) : <div>No Activities</div>}
+                    </Activity>) : <DragDropInfo>Drag and drop in this region to map activities.</DragDropInfo>}
             </ActivityContainer>
         </Container>
     )

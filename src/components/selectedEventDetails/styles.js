@@ -30,11 +30,17 @@ export const Details = muiStyled(Paper)`
     overflow-y: hidden;
     white-space: nowrap;
 
-     -ms-overflow-style: none;
-    scrollbar-width: none;
+    -ms-overflow-style: none;
     scroll-behavior: smooth;
+
     ::-webkit-scrollbar {
-        display: none;
+    height: 5px;
+    background-color: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+        border-radius: 2px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-color: black;
     }
 `
 

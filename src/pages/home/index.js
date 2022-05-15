@@ -19,7 +19,11 @@ function Home() {
         <ActivityDropContainer>
           <ActivityDrop />
         </ActivityDropContainer>
-        <SideNavigationContainer></SideNavigationContainer>
+        <SideNavigationContainer>
+          <h3 style={{ textAlign: "center", paddingTop: "100%" }}>
+            Side Navigation bar
+          </h3>
+        </SideNavigationContainer>
       </ContextWrapper>
     </GridContainer>
   )

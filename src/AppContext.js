@@ -12,6 +12,7 @@ export const ContextWrapper = (props) => {
         },
     });
 
+    // eslint-disable-next-line
     const [actions, setActions] = useState({
         addActivity: activity => setStore({ ...store, activities: store.activities.concat(activity) }),
         addEvent: event => setStore({ ...store, events: store.events.concat(event) }),

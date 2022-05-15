@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { Container, SearchField, ActivityContainer, ActivityContent, Activity } from "./styles"
+import { Container, SearchField, ActivityContainer, ActivityContent, Activity, NoActivityInfo } from "./styles"
 import { CardActionArea } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
@@ -14,7 +14,7 @@ const ListOfActivites = (props) => {
     const [activities, setActivities] = useState([])
     const [search, setSearch] = useState("")
     let fuse = new Fuse(store.activities, {
-        keys: ["name", "description"],
+        keys: ["name"],
     });
     const [actAlert, setActAlert] = useState(false)
 
@@ -40,7 +40,7 @@ const ListOfActivites = (props) => {
         let card_info = JSON.parse(e.dataTransfer.getData('card_info'))
         let id = card_info.id
         card_info.id = parseInt(card_info.id)
-        setStore({ ...store, activities: store.activities.concat(card_info), dropActivities: store.dropActivities.filter(a => a.id !== id) })
+        setStore({ ...store, activities: [card_info].concat(store.activities), dropActivities: store.dropActivities.filter(a => a.id !== id) })
         setActAlert(true);
     }
 
@@ -103,6 +103,7 @@ const ListOfActivites = (props) => {
                         draggable="true"
                         onDragStart={dragStart}
                         onDragEnd={cardDragEnd}
+                        elevation={3}
                     >
                         <CardActionArea>
                             <ActivityContent>
@@ -110,7 +111,7 @@ const ListOfActivites = (props) => {
                                 <p>{activity.description}</p>
                             </ActivityContent>
                         </CardActionArea>
-                    </Activity>) : <div>No Activities</div>}
+                    </Activity>) : <NoActivityInfo>No Activities here. Feel free to create a new one!</NoActivityInfo>}
             </ActivityContainer>
         </Container>
     )

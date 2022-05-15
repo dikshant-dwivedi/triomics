@@ -16,20 +16,34 @@ export const ActivityContainer = styled.div`
     margin: 5px 0;
     overflow-y: scroll;
 
-     -ms-overflow-style: none;
-    scrollbar-width: none;
+    -ms-overflow-style: none;
     scroll-behavior: smooth;
+
     ::-webkit-scrollbar {
-        display: none;
+    width: 5px;
+    background-color: transparent;
     }
+    ::-webkit-scrollbar-thumb {
+        border-radius: 2px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-color: black;
+    }
+
 `
 
 export const Activity = muiStyled(Card)`
     width: 100%;
     margin: 5px 0;
+    background: #F9CEEE;
 `
 export const ActivityContent = muiStyled(CardContent)`
     width: 100%;
+`
+
+export const NoActivityInfo = styled.div`
+    height: calc(100% - 70px);
+    text-align: center;
+    padding-top: 50%;
 `
 
 

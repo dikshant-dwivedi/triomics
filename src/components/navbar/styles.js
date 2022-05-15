@@ -25,8 +25,9 @@ export const NavLinkContainer = styled.div`
 export const NavLink = styled(Link)`
     display: flex;
     text-decoration: none;
-    font-size: 1rem;
-    font-weight: 400;
+    font-size: 1.15rem;
+    font-family: Roboto;
+    font-weight: 500;
     color: ${({ theme }) => theme.linkColor};
 
     &:active {
