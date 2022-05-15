@@ -1,14 +1,20 @@
 import React from 'react'
-import { GridContainer, SelectedEventDetails, ListOfActivities, ListOfEvents, ActivityDrop } from './styles'
+import { SelectedEventDetails, ListOfActivities } from '../../components'
+import { GridContainer, SelectedEventDetailsContainer, ListOfActivitiesContainer, ListOfEventsContainer, ActivityDropContainer, SideNavigationContainer } from './styles'
 
 
 function Home() {
   return (
     <GridContainer>
-      <SelectedEventDetails />
-      <ListOfActivities />
-      <ListOfEvents />
-      <ActivityDrop />
+      <SelectedEventDetailsContainer>
+        <SelectedEventDetails />
+      </SelectedEventDetailsContainer>
+      <ListOfActivitiesContainer>
+        <ListOfActivities />
+      </ListOfActivitiesContainer>
+      <ListOfEventsContainer></ListOfEventsContainer>
+      <ActivityDropContainer></ActivityDropContainer>
+      <SideNavigationContainer></SideNavigationContainer>
     </GridContainer>
   )
 }

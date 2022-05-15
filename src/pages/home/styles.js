@@ -9,33 +9,44 @@ export const GridContainer = styled.div`
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 0px 0px;
     grid-auto-flow: row;
-    grid-template-areas:
-        "Selected-Event-Details Selected-Event-Details Selected-Event-Details Selected-Event-Details Selected-Event-Details Selected-Event-Details Selected-Event-Details Selected-Event-Details Selected-Event-Details Selected-Event-Details Selected-Event-Details Selected-Event-Details"
-        "Selected-Event-Details Selected-Event-Details Selected-Event-Details Selected-Event-Details Selected-Event-Details Selected-Event-Details Selected-Event-Details Selected-Event-Details Selected-Event-Details Selected-Event-Details Selected-Event-Details Selected-Event-Details"
-        "List-Of-Events List-Of-Events List-Of-Events ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities"
-        "List-Of-Events List-Of-Events List-Of-Events ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities"
-        "List-Of-Events List-Of-Events List-Of-Events ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities"
-        "List-Of-Events List-Of-Events List-Of-Events ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities"
-        "List-Of-Events List-Of-Events List-Of-Events ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities"
-        "List-Of-Events List-Of-Events List-Of-Events ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities"
-        "List-Of-Events List-Of-Events List-Of-Events ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities"
-        "List-Of-Events List-Of-Events List-Of-Events ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities"
-        "List-Of-Events List-Of-Events List-Of-Events ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities"
-        "List-Of-Events List-Of-Events List-Of-Events ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities";
-    `
+    grid-template-areas: 
+    "SideNavigation SideNavigation SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails"
+    "SideNavigation SideNavigation SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails"
+    "SideNavigation SideNavigation ListOfEvents ListOfEvents ListOfEvents ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities"
+    "SideNavigation SideNavigation ListOfEvents ListOfEvents ListOfEvents ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities"
+    "SideNavigation SideNavigation ListOfEvents ListOfEvents ListOfEvents ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities"
+    "SideNavigation SideNavigation ListOfEvents ListOfEvents ListOfEvents ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities"
+    "SideNavigation SideNavigation ListOfEvents ListOfEvents ListOfEvents ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities"
+    "SideNavigation SideNavigation ListOfEvents ListOfEvents ListOfEvents ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities"
+    "SideNavigation SideNavigation ListOfEvents ListOfEvents ListOfEvents ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities"
+    "SideNavigation SideNavigation ListOfEvents ListOfEvents ListOfEvents ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities"
+    "SideNavigation SideNavigation ListOfEvents ListOfEvents ListOfEvents ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities"
+    "SideNavigation SideNavigation ListOfEvents ListOfEvents ListOfEvents ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities"; 
 
-export const SelectedEventDetails = styled.div`
-    grid-area: Selected-Event-Details;
+    border: 1px solid black; 
 `
 
-export const ListOfEvents = styled.div`
-    grid-area: List-Of-Events; 
+export const SelectedEventDetailsContainer = styled.div`
+    grid-area: SelectedEventDetails;
+    border: 1px solid black; 
 `
 
-export const ActivityDrop = styled.div`
+export const ListOfEventsContainer = styled.div`
+    grid-area: ListOfEvents; 
+    border: 1px solid black; 
+`
+
+export const ActivityDropContainer = styled.div`
     grid-area: ActivityDrop;
+    border: 1px solid black; 
 `
 
-export const ListOfActivities = styled.div`
+export const ListOfActivitiesContainer = styled.div`
     grid-area: ListOfActivities;
+    border: 1px solid black; 
+`
+
+export const SideNavigationContainer = styled.div`
+    grid-area: SideNavigation;
+    border: 1px solid black; 
 `

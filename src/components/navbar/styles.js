@@ -26,19 +26,20 @@ export const NavLink = styled(Link)`
     display: flex;
     text-decoration: none;
     font-size: 1rem;
-    font-weight: 500;
-    color: black;
+    font-weight: 400;
+    color: ${({ theme }) => theme.linkColor};
 
     &:active {
         color: ${({ theme }) => theme.linkColor};
     }
     &:hover {
         color: ${({ theme }) => theme.linkColor};
+        font-weight: 500;
     }
 `
 
 export const Logo = styled.div`
-    height: 45px;
+    height: 35px;
     overflow: hidden;
 `
 

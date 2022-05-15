@@ -1,4 +1,5 @@
 export const THEME = {
-    navBg: "#FFE59D",
-    linkColor: "black",
+    bodyBg: "#010101",
+    navBg: "#010101",
+    linkColor: "#F7F6FF",
 }
