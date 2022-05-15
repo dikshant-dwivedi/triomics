@@ -7,17 +7,30 @@ export const Container = styled.div`
     padding: 5px;
     display: flex;
     align-items: center;
+    @media screen and (max-width: 1080px) {
+        flex-direction: column;
+        justify-content: center;
+    }
 `
 export const AddEventButton = muiStyled(Button)`
     margin: 0 5px;
+    @media screen and (max-width: 600px) {
+        font-size: 0.6rem;
+    }
 `
 
 export const AddActivityButton = muiStyled(Button)`
     margin: 0 5px;
+    @media screen and (max-width: 600px) {
+        font-size: 0.6rem;
+    }
 `
 
 export const ExportButton = muiStyled(Button)`
     margin: 0 5px;
+    @media screen and (max-width: 600px) {
+        font-size: 0.6rem;
+    }
 `
 
 export const Details = muiStyled(Paper)`
@@ -41,6 +54,15 @@ export const Details = muiStyled(Paper)`
         border-radius: 2px;
         -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
         background-color: black;
+    }
+
+    @media screen and (max-width: 1080px) {
+        margin: 15px 5px;
+    }
+
+    @media screen and (max-width: 600px) {
+        margin: 15px 5px;
+        width: 90%;
     }
 `
 

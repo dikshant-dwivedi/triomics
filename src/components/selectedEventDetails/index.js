@@ -80,29 +80,31 @@ const SelectedEventDetails = () => {
                 </Alert>
             </Snackbar>
             <Details elevation={5}>{store.selectedEvent.id !== "" ? "Description: " + store.selectedEvent.description : "Select event to view description"}</Details>
-            <ExportButton
-                variant="contained"
-                startIcon={<AddOutlinedIcon />}
-                onClick={handleCopyText}
-                disabled={store.selectedEvent.id === "" || store.dropActivities.length === 0}
-            >
-                Export Json
-            </ExportButton>
-            <AddEventButton
-                variant="contained"
-                startIcon={<AddOutlinedIcon />}
-                onClick={() => setEventModalOpen(true)}
-            >
-                Add Event
-            </AddEventButton>
-            <AddActivityButton
-                variant="contained"
-                startIcon={<AddOutlinedIcon />}
-                onClick={() => setActivityModalOpen(true)}
-                disabled={store.selectedEvent.id === ""}
-            >
-                Add Activity
-            </AddActivityButton>
+            <div>
+                <ExportButton
+                    variant="contained"
+                    startIcon={<AddOutlinedIcon />}
+                    onClick={handleCopyText}
+                    disabled={store.selectedEvent.id === "" || store.dropActivities.length === 0}
+                >
+                    Export Json
+                </ExportButton>
+                <AddEventButton
+                    variant="contained"
+                    startIcon={<AddOutlinedIcon />}
+                    onClick={() => setEventModalOpen(true)}
+                >
+                    Add Event
+                </AddEventButton>
+                <AddActivityButton
+                    variant="contained"
+                    startIcon={<AddOutlinedIcon />}
+                    onClick={() => setActivityModalOpen(true)}
+                    disabled={store.selectedEvent.id === ""}
+                >
+                    Add Activity
+                </AddActivityButton>
+            </div>
             <Modal open={activityModalOpen} onClose={() => setActivityModalOpen(false)}>
                 <ModalTitle>Add Activity</ModalTitle>
                 <ModalContent>

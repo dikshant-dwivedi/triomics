@@ -24,6 +24,24 @@ export const GridContainer = styled.div`
     "SideNavigation SideNavigation ListOfEvents ListOfEvents ListOfEvents ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities"; 
 
     border: 1px solid black; 
+
+    @media screen and (max-width: 1080px) {
+        grid-template-areas: 
+    "SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails"
+    "SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails"
+    "ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities"
+    "ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities"
+    "ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities"
+    "ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities"
+    "ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities"
+    "ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities"
+    "ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities"
+    "ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents"
+    "ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents"
+    "ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents"; 
+    
+    height: 180vh;
+    }
 `
 
 export const SelectedEventDetailsContainer = styled.div`
@@ -49,4 +67,7 @@ export const ListOfActivitiesContainer = styled.div`
 export const SideNavigationContainer = styled.div`
     grid-area: SideNavigation;
     border: 1px solid black; 
+        @media screen and (max-width: 1080px){
+        display: none;
+    }
 `
