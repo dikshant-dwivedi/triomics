@@ -1,3 +1,5 @@
 export { default as NavBar } from "./navbar/index.js"
 export { default as SelectedEventDetails } from "./selectedEventDetails/index.js"
 export { default as ListOfActivities } from "./listOfActivities/index.js"
+export { default as ListOfEvents } from "./listOfEvents/index.js"
+export { default as ActivityDrop } from "./activityDrop/index.js"
