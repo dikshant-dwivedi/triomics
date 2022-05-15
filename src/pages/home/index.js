@@ -1,11 +1,15 @@
 import React from 'react'
-//import Grid from '@mui/material/Grid';
-
+import { GridContainer, SelectedEventDetails, ListOfActivities, ListOfEvents, ActivityDrop } from './styles'
 
 
 function Home() {
   return (
-    <div></div>
+    <GridContainer>
+      <SelectedEventDetails />
+      <ListOfActivities />
+      <ListOfEvents />
+      <ActivityDrop />
+    </GridContainer>
   )
 }
 

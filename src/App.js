@@ -8,11 +8,11 @@ import { NavBar } from "./components"
 
 function App() {
   return (
-    <ThemeProvider theme = {THEME}>
-      <GlobalCSS/>
-      <NavBar/>
+    <ThemeProvider theme={THEME}>
+      <GlobalCSS />
+      <NavBar />
       <Routes>
-        <Route path={ROUTES.HOME} element={<Home />} />  
+        <Route path={ROUTES.HOME} element={<Home />} />
       </Routes>
     </ThemeProvider>
   );

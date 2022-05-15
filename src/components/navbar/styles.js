@@ -3,9 +3,10 @@ import { NavLink as Link } from "react-router-dom";
 
 export const Nav = styled.nav`
     height: 45px;
-    background: ${({theme}) => theme.navBg};
+    background: ${({ theme }) => theme.navBg};
     display: flex;
     justify-content: center;
+    overflow: hidden;
 `;
 
 export const NavLinkContainer = styled.div`
@@ -29,15 +30,15 @@ export const NavLink = styled(Link)`
     color: black;
 
     &:active {
-        color: ${({theme}) => theme.linkColor};
+        color: ${({ theme }) => theme.linkColor};
     }
     &:hover {
-        color: ${({theme}) => theme.linkColor};
+        color: ${({ theme }) => theme.linkColor};
     }
 `
 
 export const Logo = styled.div`
-    width: 120px;
+    height: 45px;
     overflow: hidden;
 `
 
