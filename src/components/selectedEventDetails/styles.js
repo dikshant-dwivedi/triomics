@@ -16,11 +16,26 @@ export const AddActivityButton = muiStyled(Button)`
     margin: 0 5px;
 `
 
-export const Details = muiStyled(Paper)`
+export const ExportButton = muiStyled(Button)`
     margin: 0 5px;
-    padding: 5px;
-    height: calc(100% - 30px);
+`
+
+export const Details = muiStyled(Paper)`
+    box-sizing: border-box;
+    margin: 0 5px;
+    padding: 15px;
+    height: calc(100% - 20px);
     flex: 1;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+
+     -ms-overflow-style: none;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    ::-webkit-scrollbar {
+        display: none;
+    }
 `
 
 export const Modal = muiStyled(Dialog)``

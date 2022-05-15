@@ -27,7 +27,7 @@ export const EventContainer = styled.div`
 export const List = muiStyled(list)``
 export const Event = muiStyled(listitem)`
     border: 1px solid black;
-    background: ${props => props.isSelected ? "#808080" : "white"};
+    background: ${props => props.isSelected ? "black" : "white"};
     color: ${props => props.isSelected ? "white" : "black"};
 `
 export const EventItemButton = muiStyled(listitembutton)``

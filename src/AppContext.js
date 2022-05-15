@@ -7,6 +7,9 @@ export const ContextWrapper = (props) => {
         activities: [],
         dropActivities: [],
         events: [],
+        selectedEvent: {
+            id: "",
+        },
     });
 
     const [actions, setActions] = useState({

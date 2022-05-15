@@ -3,18 +3,27 @@ import { Container, SearchField, ActivityContainer, ActivityContent, Activity } 
 import { CardActionArea } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
-import axios from 'axios';
 import Fuse from "fuse.js";
 import { AppContext } from './../../AppContext';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 const ListOfActivites = (props) => {
 
-    const { store, actions, setStore } = useContext(AppContext);
+    const { store, setStore } = useContext(AppContext);
     const [activities, setActivities] = useState([])
     const [search, setSearch] = useState("")
     let fuse = new Fuse(store.activities, {
         keys: ["name", "description"],
     });
+    const [actAlert, setActAlert] = useState(false)
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setActAlert(false);
+    };
 
     const dragStart = (e) => {
         const target = e.target
@@ -32,6 +41,7 @@ const ListOfActivites = (props) => {
         let id = card_info.id
         card_info.id = parseInt(card_info.id)
         setStore({ ...store, activities: store.activities.concat(card_info), dropActivities: store.dropActivities.filter(a => a.id !== id) })
+        setActAlert(true);
     }
 
     const dragOver = (e) => {
@@ -42,15 +52,6 @@ const ListOfActivites = (props) => {
         setActivities(store.activities)
         setSearch("")
     }, [store.activities])
-
-    useEffect(() => {
-        const getAllActivities = async () => {
-            const { data } = await axios("https://39480cf6-d2ac-44de-b113-ce52a5b8e509.mock.pstmn.io/api/activities")
-            actions.setActivities(data)
-            setActivities(data)
-        }
-        getAllActivities()
-    }, [actions])
 
 
     const handleOnChange = (e) => {
@@ -74,6 +75,11 @@ const ListOfActivites = (props) => {
 
     return (
         <Container>
+            <Snackbar open={actAlert} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="warning" sx={{ width: '100%' }} variant="filled">
+                    Activity unmapped from this Event!
+                </Alert>
+            </Snackbar>
             <SearchField
                 label="Search Activities"
                 value={search}

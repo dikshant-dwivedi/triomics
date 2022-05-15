@@ -1,18 +1,29 @@
-import React, { useState, useRef, useContext } from 'react'
-import { Container, Activity, ActivityContainer, ActivityContent } from './styles'
+import React, { useRef, useContext, useState } from 'react'
+import { Container, Activity, ActivityContainer, ActivityContent, Heading } from './styles'
 import { CardActionArea } from '@mui/material'
 import { AppContext } from './../../AppContext';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 const ActivityDrop = () => {
 
-    const { store, actions, setStore } = useContext(AppContext);
+    const { store, setStore } = useContext(AppContext);
     const ref = useRef(null);
+    const [actAlert, setActAlert] = useState(false)
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setActAlert(false);
+    };
 
     const drop = (e) => {
         e.preventDefault()
         const card_info = JSON.parse(e.dataTransfer.getData('card_info'))
         let id = parseInt(card_info.id)
         setStore({ ...store, dropActivities: store.dropActivities.concat(card_info), activities: store.activities.filter(a => a.id !== id) })
+        setActAlert(true);
         if (ref.current) {
             const offsetBottom = ref.current.offsetTop + ref.current.offsetHeight;
             ref.current.scrollTo({ top: offsetBottom });
@@ -38,6 +49,12 @@ const ActivityDrop = () => {
             onDrop={drop}
             onDragOver={dragOver}
         >
+            <Snackbar open={actAlert} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }} variant="filled">
+                    Activity Mapped to this Event!
+                </Alert>
+            </Snackbar>
+            <Heading>Mapped Activities</Heading>
             <ActivityContainer
                 ref={ref}
             >

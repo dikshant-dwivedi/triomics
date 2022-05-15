@@ -6,11 +6,12 @@ function NavBar() {
     <Nav>
       <NavLinkContainer>
         <NavLink to="/" >About</NavLink>
-        <NavLink to="/">
+        <NavLink to="/" >Triomics</NavLink>
+        {/*<NavLink to="/">
           <Logo>
             <LogoImage src="/images/triomics_black.png" alt="logo" />
           </Logo>
-        </NavLink>
+        </NavLink>*/}
         <NavLink to="/" >Contact us</NavLink>
       </NavLinkContainer>
     </Nav>

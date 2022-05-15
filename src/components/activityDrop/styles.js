@@ -7,6 +7,13 @@ export const Container = styled.div`
     padding: 10px;
 `
 
+export const Heading = styled.h3`
+    text-align: center;
+    border: 1px solid black;
+    margin: 0px;
+    padding: 15px 0;
+`
+
 export const ActivityContainer = styled.div`
     height: calc(100% - 70px);
     margin: 5px 0;
