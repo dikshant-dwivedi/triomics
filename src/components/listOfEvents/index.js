@@ -2,24 +2,42 @@ import React, { useEffect, useState, useContext } from 'react'
 import { Container, SearchField, EventContainer, EventItemButton, EventItemText, Event, NoEventInfo } from "./styles"
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
-//import axios from 'axios';
+import axios from 'axios';
 import Fuse from "fuse.js";
 import { AppContext } from './../../AppContext';
-//import { events as eventsDummy } from "./../../dummy/events"
+import { events as eventsDummy } from "./../../dummy/events"
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 const ListOfEvents = () => {
     const [events, setEvents] = useState([])
     const [search, setSearch] = useState("")
-    const { store, setStore } = useContext(AppContext);
+    const { store, actions } = useContext(AppContext);
+    const [apiEFailAlert, setApiEFailAlert] = useState(false)
+    const [message, setMessage] = useState("")
 
     let fuse = new Fuse(store.events, {
         keys: ["name"],
     });
 
     useEffect(() => {
-
-        // eslint-disable-next-line
-    }, [])
+        const getAllEvents = async () => {
+            try {
+                const { edata } = await axios("https://39480cf6-d2ac-44de-b113-ce52a5b8e509.mock.pstmn.io/api/events")
+                let eventsData = edata.map(e => ({ ...e, dropActivities: [] }))
+                actions.setEvents(eventsData)
+            }
+            catch (e) {
+                let code = e.response.status
+                let name = e.response.data.error.name
+                let message = `Event API failed with response code: ${code}(${name}). To test the application, some dummy events have been filled.`
+                setMessage(message)
+                setApiEFailAlert(true)
+                actions.setEvents(eventsDummy)
+            }
+        }
+        getAllEvents()
+    }, [actions])
 
     const handleOnChange = (e) => {
         setSearch(e.target.value)
@@ -50,16 +68,18 @@ const ListOfEvents = () => {
         if (store.selectedEvent.id !== id) {
             const event = store.events.find(event => event.id === id)
             if (event !== null) {
-                setStore({
-                    ...store,
-                    selectedEvent: event,
-                })
+                actions.setSelectedEvent(event)
             }
         }
     }
 
     return (
         <Container>
+            <Snackbar open={apiEFailAlert} autoHideDuration={10000} onClose={() => setApiEFailAlert(false)}>
+                <Alert onClose={() => setApiEFailAlert(false)} severity="error" sx={{ width: '100%' }} variant="filled">
+                    {message}
+                </Alert>
+            </Snackbar>
             <SearchField
                 label="Search Events"
                 value={search}

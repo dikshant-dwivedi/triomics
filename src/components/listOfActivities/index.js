@@ -7,18 +7,20 @@ import Fuse from "fuse.js";
 import { AppContext } from './../../AppContext';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-//import axios from 'axios';
-//import { activities as activitiesDummy } from "./../../dummy/activities"
+import axios from 'axios';
+import { activities as activitiesDummy } from "./../../dummy/activities"
 
 const ListOfActivites = (props) => {
 
-    const { store, setStore } = useContext(AppContext);
+    const { store, actions } = useContext(AppContext);
     const [activities, setActivities] = useState([])
     const [search, setSearch] = useState("")
     let fuse = new Fuse(store.activities, {
         keys: ["name"],
     });
     const [actAlert, setActAlert] = useState(false)
+    const [apiFailAlert, setApiFailAlert] = useState(false)
+    const [message, setMessage] = useState("")
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -40,19 +42,10 @@ const ListOfActivites = (props) => {
     const drop = (e) => {
         e.preventDefault()
         let card_info = JSON.parse(e.dataTransfer.getData('card_info'))
-        let mappedActivities = store.selectedEvent.dropActivities.filter(a => a.id !== card_info.id)
-        setStore({
-            ...store,
-            activities: [card_info].concat(store.activities),
-            selectedEvent: {
-                ...store.selectedEvent,
-                dropActivities: mappedActivities
-            },
-            events: store.events.map(e => ({
-                ...e,
-                dropActivities: store.selectedEvent.id === e.id ? mappedActivities : e.dropActivities
-            })),
-        })
+
+        actions.addActivity(card_info)
+        actions.removeDropActivityFromSelectedEvent(card_info.id)
+        actions.removeDropActivityFromAllEvents(card_info.id)
         setActAlert(true);
     }
 
@@ -60,27 +53,25 @@ const ListOfActivites = (props) => {
         e.preventDefault()
     }
 
-    /*useEffect(() => {
+    useEffect(() => {
         const getAllActivities = async () => {
             try {
-                const { data } = await axios("https://39480cf6-d2ac-44de-b113-ce52a5b8e509.mock.pstmn.io/api/activities")
-                let activityData = data.map(e => ({ ...e, id: toString(e.id) }))
-                setStore({
-                    ...store,
-                    activities: activityData,
-                })
+                const { adata } = await axios("https://39480cf6-d2ac-44de-b113-ce52a5b8e509.mock.pstmn.io/api/activities")
+                let activityData = adata.map(e => ({ ...e, id: toString(e.id) }))
+                actions.setActivities(activityData)
             }
             catch (e) {
-                console.log(e)
-                setStore({
-                    ...store,
-                    activities: activitiesDummy,
-                })
+                let code = e.response.status
+                let name = e.response.data.error.name
+                let message = `Activity API failed with response code: ${code}(${name}). To test the application, some dummy activities have been filled.`
+                setMessage(message)
+                setApiFailAlert(true)
+                let activityData = activitiesDummy.map(e => ({ ...e, id: e.id.toString() }))
+                actions.setActivities(activityData)
             }
         }
         getAllActivities()
-        // eslint-disable-next-line
-    }, [])*/
+    }, [actions])
 
     useEffect(() => {
         setActivities(store.activities)
@@ -112,6 +103,11 @@ const ListOfActivites = (props) => {
             <Snackbar open={actAlert} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="warning" sx={{ width: '100%' }} variant="filled">
                     Activity unmapped from this Event!
+                </Alert>
+            </Snackbar>
+            <Snackbar open={apiFailAlert} autoHideDuration={10000} onClose={() => setApiFailAlert(false)}>
+                <Alert onClose={() => setApiFailAlert(false)} severity="error" sx={{ width: '100%' }} variant="filled">
+                    {message}
                 </Alert>
             </Snackbar>
             <SearchField

@@ -10,7 +10,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 const SelectedEventDetails = () => {
 
-    const { store, setStore } = useContext(AppContext);
+    const { store, actions } = useContext(AppContext);
     const [activityModalOpen, setActivityModalOpen] = useState(false);
     const [eventModalOpen, setEventModalOpen] = useState(false);
 
@@ -24,20 +24,13 @@ const SelectedEventDetails = () => {
     const [cpyAlert, setCpyAlert] = useState(false)
     const [exptAlert, setExptAlert] = useState(false)
 
-    /*const handleClose = (event, reason) => {
-        setActAlert(false);
-        setEvtAlert(false);
-        setCpyAlert(false);
-        setExptAlert(false);
-    };*/
-
     const addActivity = (e) => {
         const newActivity = {
             id: uuid(),
             name: actName,
             description: actDesc,
         }
-        setStore({ ...store, activities: [newActivity].concat(store.activities) })
+        actions.addActivity(newActivity)
         setActivityModalOpen(false)
         setActAlert(true)
         setActName("")
@@ -51,7 +44,7 @@ const SelectedEventDetails = () => {
             description: evtDesc,
             dropActivities: [],
         }
-        setStore({ ...store, events: [newEvent].concat(store.events) })
+        actions.addEvent(newEvent)
         setEventModalOpen(false)
         setEvtAlert(true)
         setEvtName("")

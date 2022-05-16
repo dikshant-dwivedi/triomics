@@ -1,6 +1,5 @@
 import { createContext, useState, useEffect } from "react";
 import { activities as activitiesDummy } from "./dummy/activities"
-import { events as eventsDummy } from "./dummy/events"
 import axios from 'axios'
 
 export const AppContext = createContext(null);
@@ -17,52 +16,6 @@ export const ContextWrapper = (props) => {
             dropActivities: [],
         },
     });
-
-    /*useEffect(() => {
-        const getAllEventsAndActivities = async () => {
-            try {
-                const { edata } = await axios("https://39480cf6-d2ac-44de-b113-ce52a5b8e509.mock.pstmn.io/api/events")
-                const { adata } = await axios("https://39480cf6-d2ac-44de-b113-ce52a5b8e509.mock.pstmn.io/api/activities")
-                let activityData = adata.map(e => ({ ...e, id: toString(e.id) }))
-                let eventsData = edata.map(e => ({ ...e, dropActivities: [] }))
-                setStore(s => ({
-                    ...s,
-                    events: eventsData,
-                    activities: activityData,
-                }))
-            }
-            catch (e) {
-                console.log(e)
-                setStore(s => ({
-                    ...s,
-                    events: eventsDummy,
-                    activities: activitiesDummy,
-                }))
-            }
-        }
-        getAllEventsAndActivities()
-    }, [setStore])*/
-
-    useEffect(() => {
-        const getAllEvents = async () => {
-            try {
-                const { edata } = await axios("https://39480cf6-d2ac-44de-b113-ce52a5b8e509.mock.pstmn.io/api/events")
-                let eventsData = edata.map(e => ({ ...e, dropActivities: [] }))
-                setStore(s => ({
-                    ...s,
-                    events: eventsData,
-                }))
-            }
-            catch (e) {
-                console.log(e)
-                setStore(s => ({
-                    ...s,
-                    events: eventsDummy,
-                }))
-            }
-        }
-        getAllEvents()
-    }, [setStore])
 
     useEffect(() => {
         const getAllActivities = async () => {
@@ -88,21 +41,50 @@ export const ContextWrapper = (props) => {
 
     // eslint-disable-next-line
     const [actions, setActions] = useState({
-        addActivity: activity => setStore({ ...store, activities: store.activities.concat(activity) }),
-        addEvent: event => setStore({ ...store, events: store.events.concat(event) }),
-        addDropActivity: dropActivity => setStore({ ...store, dropActivities: store.dropActivities.concat(dropActivity) }),
-        setActivities: activities => setStore({ ...store, activities: activities }),
-        setEvents: events => setStore({ ...store, events: events }),
-        removeActivity: id => setStore({ ...store, activities: store.activities.filter(a => a.id !== id) }),
-        removeDropActivity: id => setStore({ ...store, dropActivities: store.dropActivities.filter(a => a.id !== id) }),
-        removeEvent: id => setStore({ ...store, activities: store.activities.filter(a => a.id !== id) }),
-        removeAllActivities: () => setStore({ ...store, activities: [] }),
-        removeAllDropActivities: () => setStore({ ...store, dropActivities: [] }),
-        removeAllEvents: () => setStore({ ...store, events: [] })
+        setActivities: activities => setStore(s => ({ ...s, activities: activities })),
+        setEvents: events => setStore(s => ({ ...s, events: events })),
+        addActivity: activity => setStore(s => ({ ...s, activities: [activity].concat(s.activities) })),
+        addEvent: event => setStore(s => ({ ...s, events: [event].concat(s.events) })),
+        addDropActivityToAllEvents: activity => setStore(s => {
+            return ({
+                ...s,
+                events: s.events.map(e => ({ ...e, dropActivities: s.selectedEvent.id === e.id ? s.selectedEvent.dropActivities : e.dropActivities })),
+            })
+        }),
+        addDropActivityToSelectedEvent: activity => setStore(s => {
+            let mappedActivities = s.selectedEvent.dropActivities
+            mappedActivities = [activity].concat(mappedActivities)
+            return ({
+                ...s,
+                selectedEvent: { ...s.selectedEvent, dropActivities: mappedActivities },
+            })
+        }),
+        removeActivity: id => setStore(s => ({ ...s, activities: s.activities.filter(a => a.id !== id) })),
+        removeDropActivityFromSelectedEvent: id => setStore(s => {
+            let mappedActivities = s.selectedEvent.dropActivities.filter(a => a.id !== id)
+            console.log("I came here")
+            return ({
+                ...s,
+                selectedEvent: {
+                    ...s.selectedEvent,
+                    dropActivities: mappedActivities
+                },
+            })
+        }),
+        removeDropActivityFromAllEvents: id => setStore(s => {
+            return ({
+                ...s,
+                events: s.events.map(e => ({
+                    ...e,
+                    dropActivities: s.selectedEvent.id === e.id ? s.selectedEvent.dropActivities : e.dropActivities
+                })),
+            })
+        }),
+        setSelectedEvent: event => setStore(s => ({ ...s, selectedEvent: event }))
     });
 
     return (
-        <AppContext.Provider value={{ store, actions, setStore }}>
+        <AppContext.Provider value={{ store, actions }}>
             {props.children}
         </AppContext.Provider>
     );

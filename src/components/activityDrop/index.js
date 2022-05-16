@@ -7,7 +7,7 @@ import Alert from '@mui/material/Alert';
 
 const ActivityDrop = () => {
 
-    const { store, setStore } = useContext(AppContext);
+    const { store, actions } = useContext(AppContext);
     const ref = useRef(null);
     const [actAlert, setActAlert] = useState(false)
 
@@ -23,15 +23,9 @@ const ActivityDrop = () => {
 
         const card_info = JSON.parse(e.dataTransfer.getData('card_info'))
 
-        let mappedActivities = store.selectedEvent.dropActivities
-        mappedActivities = [card_info].concat(mappedActivities)
-
-        setStore({
-            ...store,
-            events: store.events.map(e => ({ ...e, dropActivities: store.selectedEvent.id === e.id ? mappedActivities : e.dropActivities })),
-            selectedEvent: { ...store.selectedEvent, dropActivities: mappedActivities },
-            activities: store.activities.filter(a => a.id !== card_info.id)
-        })
+        actions.addDropActivityToSelectedEvent(card_info)
+        actions.addDropActivityToAllEvents(card_info)
+        actions.removeActivity(card_info.id)
 
         setActAlert(true);
     }
