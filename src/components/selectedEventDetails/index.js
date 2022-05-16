@@ -1,10 +1,12 @@
 import React, { useState, useContext } from 'react'
-import { Container, AddActivityButton, AddEventButton, Details, Modal, ModalTitle, ModalActions, ModalContent, TypeField, ModalButton, ExportButton } from './styles'
+import { Container, AddActivityButton, AddEventButton, Details, Modal, ModalTitle, ModalActions, CopyJson, ModalContent, TypeField, ModalButton, ExportButton } from './styles'
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import { AppContext } from './../../AppContext';
 import { v4 as uuid } from 'uuid';
 import Snackbar from '@mui/material/Snackbar';
+import Stack from '@mui/material/Stack';
 import Alert from '@mui/material/Alert';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 const SelectedEventDetails = () => {
 
@@ -20,14 +22,13 @@ const SelectedEventDetails = () => {
     const [actAlert, setActAlert] = useState(false)
     const [evtAlert, setEvtAlert] = useState(false)
     const [cpyAlert, setCpyAlert] = useState(false)
+    const [exptAlert, setExptAlert] = useState(false)
 
     const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
         setActAlert(false);
         setEvtAlert(false);
         setCpyAlert(false);
+        setExptAlert(false);
     };
 
     const addActivity = (e) => {
@@ -62,29 +63,63 @@ const SelectedEventDetails = () => {
         setCpyAlert(true)
     }
 
+    const exportToJson = () => {
+        let objectData = { ...store.selectedEvent, mappedDetails: store.dropActivities }
+        let filename = "export.json";
+        let contentType = "application/json;charset=utf-8;";
+        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+            var blob = new Blob([decodeURIComponent(encodeURI(JSON.stringify(objectData)))], { type: contentType });
+            navigator.msSaveOrOpenBlob(blob, filename);
+        } else {
+            var a = document.createElement('a');
+            a.download = filename;
+            a.href = 'data:' + contentType + ',' + encodeURIComponent(JSON.stringify(objectData));
+            a.target = '_blank';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+        setExptAlert(true)
+    }
+
     return (
         <Container>
-            <Snackbar open={actAlert} autoHideDuration={6000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }} variant="filled">
-                    Activity Added!
-                </Alert>
-            </Snackbar>
-            <Snackbar open={evtAlert} autoHideDuration={6000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }} variant="filled">
-                    Event Added!
-                </Alert>
-            </Snackbar>
-            <Snackbar open={cpyAlert} autoHideDuration={6000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }} variant="filled">
-                    Event details along with mapped activities copied to clipboard!
-                </Alert>
-            </Snackbar>
+            <Stack spacing={2}>
+                <Snackbar open={actAlert} autoHideDuration={6000} onClose={() => setActAlert(false)}>
+                    <Alert onClose={() => setActAlert(false)} severity="success" sx={{ width: '100%' }} variant="filled">
+                        Activity Added!
+                    </Alert>
+                </Snackbar>
+                <Snackbar open={evtAlert} autoHideDuration={6000} onClose={() => setEvtAlert(false)}>
+                    <Alert onClose={() => setEvtAlert(false)} severity="success" sx={{ width: '100%' }} variant="filled">
+                        Event Added!
+                    </Alert>
+                </Snackbar>
+                <Snackbar open={cpyAlert} autoHideDuration={6000} onClose={() => setCpyAlert(false)}>
+                    <Alert onClose={() => setCpyAlert(false)} severity="success" sx={{ width: '100%' }} variant="filled">
+                        Event details along with mapped activities copied to clipboard!
+                    </Alert>
+                </Snackbar>
+                <Snackbar open={exptAlert} autoHideDuration={6000} onClose={() => setExptAlert(false)}>
+                    <Alert onClose={() => setExptAlert(false)} severity="success" sx={{ width: '100%' }} variant="filled">
+                        Events details successfully exported!
+                    </Alert>
+                </Snackbar>
+            </Stack>
             <Details elevation={5}>{store.selectedEvent.id !== "" ? "Description: " + store.selectedEvent.description : "Select event to view description"}</Details>
             <div>
-                <ExportButton
+                <CopyJson
                     variant="contained"
                     startIcon={<AddOutlinedIcon />}
                     onClick={handleCopyText}
+                    disabled={store.selectedEvent.id === "" || store.dropActivities.length === 0}
+                >
+                    <ContentCopyIcon />
+                </CopyJson>
+                <ExportButton
+                    variant="contained"
+                    startIcon={<AddOutlinedIcon />}
+                    onClick={exportToJson}
                     disabled={store.selectedEvent.id === "" || store.dropActivities.length === 0}
                 >
                     Export Json

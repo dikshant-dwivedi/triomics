@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { styled as muiStyled } from '@mui/material/styles';
-import { Button, Paper, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from "@mui/material";
+import { Button, Paper, Dialog, DialogTitle, DialogContent, IconButton, DialogActions, TextField } from "@mui/material";
 
 export const Container = styled.div`
     height: calc(100% - 10px);
@@ -31,6 +31,10 @@ export const ExportButton = muiStyled(Button)`
     @media screen and (max-width: 600px) {
         font-size: 0.6rem;
     }
+`
+
+export const CopyJson = muiStyled(IconButton)`
+    margin: 0 5px;
 `
 
 export const Details = muiStyled(Paper)`
