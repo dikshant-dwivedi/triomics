@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Container, AddActivityButton, AddEventButton, Details, Modal, ModalTitle, ModalActions, CopyJson, ModalContent, TypeField, ModalButton, ExportButton } from './styles'
+import { Container, AddActivityButton, AddEventButton, Details, Modal, ModalTitle, ModalActions, CopyJson, ModalContent, TypeField, ModalButton, ExportButton, ButtonContainer } from './styles'
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import { AppContext } from './../../AppContext';
 import { v4 as uuid } from 'uuid';
@@ -101,7 +101,7 @@ const SelectedEventDetails = () => {
                 </Snackbar>
             </Stack>
             <Details elevation={5}>{store.selectedEvent.id !== "" ? "Description: " + store.selectedEvent.description : "Select event to view description"}</Details>
-            <div>
+            <ButtonContainer>
                 <CopyJson
                     variant="contained"
                     onClick={handleCopyText}
@@ -131,7 +131,7 @@ const SelectedEventDetails = () => {
                 >
                     Add Activity
                 </AddActivityButton>
-            </div>
+            </ButtonContainer>
             <Modal open={activityModalOpen} onClose={() => setActivityModalOpen(false)}>
                 <ModalTitle>Add Activity</ModalTitle>
                 <ModalContent>

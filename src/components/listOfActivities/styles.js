@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { styled as muiStyled } from '@mui/material/styles';
-import { TextField, Card, CardContent } from "@mui/material";
+import { TextField, Card, CardContent, Button } from "@mui/material";
 
 export const Container = styled.div`
     height: calc(100% - 20px);
@@ -35,6 +35,8 @@ export const Activity = muiStyled(Card)`
     width: 100%;
     margin: 5px 0;
     background: #F9CEEE;
+    display: flex;
+    flex-direction: column;
 `
 export const ActivityContent = muiStyled(CardContent)`
     width: 100%;
@@ -44,6 +46,13 @@ export const NoActivityInfo = styled.div`
     height: calc(100% - 70px);
     text-align: center;
     padding-top: 50%;
+`
+
+export const MapButton = muiStyled(Button)`
+    display: none;
+    @media screen and (max-width: 1080px) {
+        display: inline;
+    }
 `
 
 

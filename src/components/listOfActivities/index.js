@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { Container, SearchField, ActivityContainer, ActivityContent, Activity, NoActivityInfo } from "./styles"
+import { Container, SearchField, ActivityContainer, ActivityContent, Activity, NoActivityInfo, MapButton } from "./styles"
 import { CardActionArea } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
@@ -47,6 +47,12 @@ const ListOfActivites = (props) => {
         actions.removeDropActivityFromSelectedEvent(card_info.id)
         actions.removeDropActivityFromAllEvents(card_info.id)
         setActAlert(true);
+    }
+
+    const dropActivity = (card_info) => {
+        actions.addDropActivityToSelectedEvent(card_info)
+        actions.addDropActivityToAllEvents(card_info)
+        actions.removeActivity(card_info.id)
     }
 
     const dragOver = (e) => {
@@ -141,6 +147,13 @@ const ListOfActivites = (props) => {
                                 <p>{activity.description}</p>
                             </ActivityContent>
                         </CardActionArea>
+                        <MapButton
+                            variant="outlined"
+                            disabled={store.selectedEvent.id === ""}
+                            onClick={() => dropActivity({ id: activity.id, name: activity.name, description: activity.description })}
+                        >
+                            Map Activity
+                        </MapButton>
                     </Activity>) : <NoActivityInfo>No Activities here. Feel free to create a new one!</NoActivityInfo>}
             </ActivityContainer>
         </Container>

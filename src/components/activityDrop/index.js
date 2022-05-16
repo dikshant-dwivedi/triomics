@@ -1,5 +1,5 @@
 import React, { useRef, useContext, useState } from 'react'
-import { Container, Activity, ActivityContainer, ActivityContent, Heading, DragDropInfo } from './styles'
+import { Container, Activity, ActivityContainer, ActivityContent, Heading, MapButton, DragDropInfo } from './styles'
 import { CardActionArea } from '@mui/material'
 import { AppContext } from './../../AppContext';
 import Snackbar from '@mui/material/Snackbar';
@@ -44,6 +44,12 @@ const ActivityDrop = () => {
         e.stopPropagation()
     }
 
+    const dropActivity = (card_info) => {
+        actions.addActivity(card_info)
+        actions.removeDropActivityFromSelectedEvent(card_info.id)
+        actions.removeDropActivityFromAllEvents(card_info.id)
+    }
+
     return (
         <Container
             onDrop={drop}
@@ -75,6 +81,13 @@ const ActivityDrop = () => {
                                         <p>{activity.description}</p>
                                     </ActivityContent>
                                 </CardActionArea>
+                                <MapButton
+                                    variant="outlined"
+                                    disabled={store.selectedEvent.id === ""}
+                                    onClick={() => dropActivity({ id: activity.id, name: activity.name, description: activity.description })}
+                                >
+                                    UnMap Activity
+                                </MapButton>
                             </Activity>) : <DragDropInfo>Drag and drop in this region to map activities.</DragDropInfo>
                     : <DragDropInfo>Select an Event to view mapped activities.</DragDropInfo>}
             </ActivityContainer>

@@ -29,16 +29,16 @@ export const GridContainer = styled.div`
         grid-template-areas: 
     "SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails"
     "SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails SelectedEventDetails"
-    "ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities"
-    "ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities"
-    "ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities"
-    "ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities"
-    "ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities"
-    "ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities"
-    "ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities"
     "ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents"
     "ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents"
-    "ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents"; 
+    "ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents ListOfEvents"
+    "ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities"
+    "ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities"
+    "ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities"
+    "ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities"
+    "ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities"
+    "ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities"
+    "ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ActivityDrop ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities ListOfActivities"; 
     
     height: 180vh;
     }

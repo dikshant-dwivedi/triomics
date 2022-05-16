@@ -76,3 +76,7 @@ export const ModalContent = muiStyled(DialogContent)``
 export const ModalActions = muiStyled(DialogActions)``
 export const TypeField = muiStyled(TextField)``
 export const ModalButton = muiStyled(Button)``
+
+export const ButtonContainer = styled.div`
+    display: flex;
+`
