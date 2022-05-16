@@ -2,27 +2,24 @@ import React, { useEffect, useState, useContext } from 'react'
 import { Container, SearchField, EventContainer, EventItemButton, EventItemText, Event, NoEventInfo } from "./styles"
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
-import axios from 'axios';
+//import axios from 'axios';
 import Fuse from "fuse.js";
 import { AppContext } from './../../AppContext';
+//import { events as eventsDummy } from "./../../dummy/events"
 
 const ListOfEvents = () => {
     const [events, setEvents] = useState([])
     const [search, setSearch] = useState("")
-    const { store, setStore, actions } = useContext(AppContext);
+    const { store, setStore } = useContext(AppContext);
 
     let fuse = new Fuse(store.events, {
         keys: ["name"],
     });
 
     useEffect(() => {
-        const getAllEvents = async () => {
-            const { data } = await axios("https://39480cf6-d2ac-44de-b113-ce52a5b8e509.mock.pstmn.io/api/events")
-            setEvents(data)
-            actions.setEvents(data)
-        }
-        getAllEvents()
-    }, [actions])
+
+        // eslint-disable-next-line
+    }, [])
 
     const handleOnChange = (e) => {
         setSearch(e.target.value)
@@ -53,11 +50,8 @@ const ListOfEvents = () => {
         if (store.selectedEvent.id !== id) {
             const event = store.events.find(event => event.id === id)
             if (event !== null) {
-                const { data } = await axios("https://39480cf6-d2ac-44de-b113-ce52a5b8e509.mock.pstmn.io/api/activities")
                 setStore({
                     ...store,
-                    activities: data,
-                    dropActivities: [],
                     selectedEvent: event,
                 })
             }
@@ -81,9 +75,8 @@ const ListOfEvents = () => {
             <EventContainer>
                 {events.length !== 0 ? events.map(event => {
                     let isSelected = store.selectedEvent.id === event.id ? true : false
-                    console.log(store.selectedEvent.id + "     " + event.id)
                     return (
-                        <Event key={event.id} disablePadding isSelected={isSelected}>
+                        <Event key={event.id} disablePadding isselected={isSelected}>
                             <EventItemButton onClick={(e) => handleEventSelection(event.id)}>
                                 <EventItemText id={event.id} primary={event.name} />
                             </EventItemButton>

@@ -7,6 +7,8 @@ import Fuse from "fuse.js";
 import { AppContext } from './../../AppContext';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+//import axios from 'axios';
+//import { activities as activitiesDummy } from "./../../dummy/activities"
 
 const ListOfActivites = (props) => {
 
@@ -27,7 +29,7 @@ const ListOfActivites = (props) => {
 
     const dragStart = (e) => {
         const target = e.target
-        const { name, description } = store.activities.find(a => a.id === parseInt(target.id))
+        const { name, description } = store.activities.find(a => a.id === target.id)
         e.dataTransfer.setData("card_info", JSON.stringify({ id: target.id, name, description }))
     }
 
@@ -38,15 +40,47 @@ const ListOfActivites = (props) => {
     const drop = (e) => {
         e.preventDefault()
         let card_info = JSON.parse(e.dataTransfer.getData('card_info'))
-        let id = card_info.id
-        card_info.id = parseInt(card_info.id)
-        setStore({ ...store, activities: [card_info].concat(store.activities), dropActivities: store.dropActivities.filter(a => a.id !== id) })
+        let mappedActivities = store.selectedEvent.dropActivities.filter(a => a.id !== card_info.id)
+        setStore({
+            ...store,
+            activities: [card_info].concat(store.activities),
+            selectedEvent: {
+                ...store.selectedEvent,
+                dropActivities: mappedActivities
+            },
+            events: store.events.map(e => ({
+                ...e,
+                dropActivities: store.selectedEvent.id === e.id ? mappedActivities : e.dropActivities
+            })),
+        })
         setActAlert(true);
     }
 
     const dragOver = (e) => {
         e.preventDefault()
     }
+
+    /*useEffect(() => {
+        const getAllActivities = async () => {
+            try {
+                const { data } = await axios("https://39480cf6-d2ac-44de-b113-ce52a5b8e509.mock.pstmn.io/api/activities")
+                let activityData = data.map(e => ({ ...e, id: toString(e.id) }))
+                setStore({
+                    ...store,
+                    activities: activityData,
+                })
+            }
+            catch (e) {
+                console.log(e)
+                setStore({
+                    ...store,
+                    activities: activitiesDummy,
+                })
+            }
+        }
+        getAllActivities()
+        // eslint-disable-next-line
+    }, [])*/
 
     useEffect(() => {
         setActivities(store.activities)
@@ -100,7 +134,7 @@ const ListOfActivites = (props) => {
                     <Activity
                         key={activity.id}
                         id={activity.id}
-                        draggable="true"
+                        draggable={store.selectedEvent.id !== "" ? "true" : "false"}
                         onDragStart={dragStart}
                         onDragEnd={cardDragEnd}
                         elevation={3}

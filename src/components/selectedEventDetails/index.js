@@ -24,16 +24,16 @@ const SelectedEventDetails = () => {
     const [cpyAlert, setCpyAlert] = useState(false)
     const [exptAlert, setExptAlert] = useState(false)
 
-    const handleClose = (event, reason) => {
+    /*const handleClose = (event, reason) => {
         setActAlert(false);
         setEvtAlert(false);
         setCpyAlert(false);
         setExptAlert(false);
-    };
+    };*/
 
     const addActivity = (e) => {
         const newActivity = {
-            id: Math.floor((Math.random() * 1000) + 1),
+            id: uuid(),
             name: actName,
             description: actDesc,
         }
@@ -49,8 +49,9 @@ const SelectedEventDetails = () => {
             id: uuid(),
             name: evtName,
             description: evtDesc,
+            dropActivities: [],
         }
-        setStore({ ...store, events: [newEvent].concat(store.events), selectedEvent: { id: "" } })
+        setStore({ ...store, events: [newEvent].concat(store.events) })
         setEventModalOpen(false)
         setEvtAlert(true)
         setEvtName("")
@@ -58,13 +59,13 @@ const SelectedEventDetails = () => {
     }
 
     const handleCopyText = (e) => {
-        const exportDetails = { ...store.selectedEvent, mappedDetails: store.dropActivities }
+        const exportDetails = store.selectedEvent
         navigator.clipboard.writeText(JSON.stringify(exportDetails))
         setCpyAlert(true)
     }
 
     const exportToJson = () => {
-        let objectData = { ...store.selectedEvent, mappedDetails: store.dropActivities }
+        let objectData = store.selectedEvent
         let filename = "export.json";
         let contentType = "application/json;charset=utf-8;";
         if (window.navigator && window.navigator.msSaveOrOpenBlob) {
@@ -110,9 +111,8 @@ const SelectedEventDetails = () => {
             <div>
                 <CopyJson
                     variant="contained"
-                    startIcon={<AddOutlinedIcon />}
                     onClick={handleCopyText}
-                    disabled={store.selectedEvent.id === "" || store.dropActivities.length === 0}
+                    disabled={store.selectedEvent.id === ""}
                 >
                     <ContentCopyIcon />
                 </CopyJson>
@@ -120,7 +120,7 @@ const SelectedEventDetails = () => {
                     variant="contained"
                     startIcon={<AddOutlinedIcon />}
                     onClick={exportToJson}
-                    disabled={store.selectedEvent.id === "" || store.dropActivities.length === 0}
+                    disabled={store.selectedEvent.id === ""}
                 >
                     Export Json
                 </ExportButton>
@@ -135,7 +135,6 @@ const SelectedEventDetails = () => {
                     variant="contained"
                     startIcon={<AddOutlinedIcon />}
                     onClick={() => setActivityModalOpen(true)}
-                    disabled={store.selectedEvent.id === ""}
                 >
                     Add Activity
                 </AddActivityButton>

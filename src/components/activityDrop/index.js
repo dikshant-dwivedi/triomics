@@ -20,14 +20,20 @@ const ActivityDrop = () => {
 
     const drop = (e) => {
         e.preventDefault()
+
         const card_info = JSON.parse(e.dataTransfer.getData('card_info'))
-        let id = parseInt(card_info.id)
-        setStore({ ...store, dropActivities: [card_info].concat(store.dropActivities), activities: store.activities.filter(a => a.id !== id) })
+
+        let mappedActivities = store.selectedEvent.dropActivities
+        mappedActivities = [card_info].concat(mappedActivities)
+
+        setStore({
+            ...store,
+            events: store.events.map(e => ({ ...e, dropActivities: store.selectedEvent.id === e.id ? mappedActivities : e.dropActivities })),
+            selectedEvent: { ...store.selectedEvent, dropActivities: mappedActivities },
+            activities: store.activities.filter(a => a.id !== card_info.id)
+        })
+
         setActAlert(true);
-        if (ref.current) {
-            const offsetBottom = ref.current.offsetTop + ref.current.offsetHeight;
-            ref.current.scrollTo({ top: offsetBottom });
-        }
     }
 
     const dragOver = (e) => {
@@ -36,7 +42,7 @@ const ActivityDrop = () => {
 
     const dragStart = (e) => {
         const target = e.target
-        const { name, description } = store.dropActivities.find(a => a.id === target.id)
+        const { name, description } = store.selectedEvent.dropActivities.find(a => a.id === target.id)
         e.dataTransfer.setData("card_info", JSON.stringify({ id: target.id, name, description }))
     }
 
@@ -58,22 +64,25 @@ const ActivityDrop = () => {
             <ActivityContainer
                 ref={ref}
             >
-                {store.dropActivities.length !== 0 ? store.dropActivities.map(activity =>
-                    <Activity
-                        key={activity.id}
-                        id={activity.id}
-                        draggable="true"
-                        onDragStart={dragStart}
-                        onDragEnd={cardDragEnd}
-                        elevation={3}
-                    >
-                        <CardActionArea>
-                            <ActivityContent>
-                                <h3>{activity.name}</h3>
-                                <p>{activity.description}</p>
-                            </ActivityContent>
-                        </CardActionArea>
-                    </Activity>) : <DragDropInfo>Drag and drop in this region to map activities.</DragDropInfo>}
+                {store.selectedEvent.id !== "" ?
+                    store.selectedEvent.dropActivities.length !== 0 ?
+                        store.selectedEvent.dropActivities.map(activity =>
+                            <Activity
+                                key={activity.id}
+                                id={activity.id}
+                                draggable="true"
+                                onDragStart={dragStart}
+                                onDragEnd={cardDragEnd}
+                                elevation={3}
+                            >
+                                <CardActionArea>
+                                    <ActivityContent>
+                                        <h3>{activity.name}</h3>
+                                        <p>{activity.description}</p>
+                                    </ActivityContent>
+                                </CardActionArea>
+                            </Activity>) : <DragDropInfo>Drag and drop in this region to map activities.</DragDropInfo>
+                    : <DragDropInfo>Select an Event to view mapped activities.</DragDropInfo>}
             </ActivityContainer>
         </Container>
     )
