@@ -63,7 +63,7 @@ const ListOfActivites = (props) => {
     useEffect(() => {
         const getAllActivities = async () => {
             try {
-                const { data } = await axios("http://tfams429.dev.triomics.in/api/activities")
+                const { data } = await axios("//tfams429.dev.triomics.in/api/activities")
                 let activityData = data.items.map(e => ({ ...e, id: uuid() }))
                 actions.setActivities(activityData)
             }
