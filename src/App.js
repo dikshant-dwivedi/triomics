@@ -5,15 +5,18 @@ import * as ROUTES from "./constants/routes"
 import { THEME } from "./constants/themes"
 import { Home } from "./pages"
 import { NavBar } from "./components"
+import { ContextWrapper } from "./AppContext"
 
 function App() {
   return (
     <ThemeProvider theme={THEME}>
       <GlobalCSS />
-      <NavBar />
-      <Routes>
-        <Route path={ROUTES.HOME} element={<Home />} />
-      </Routes>
+      <ContextWrapper>
+        <NavBar />
+        <Routes>
+          <Route path={ROUTES.HOME} element={<Home />} />
+        </Routes>
+      </ContextWrapper>
     </ThemeProvider>
   );
 }

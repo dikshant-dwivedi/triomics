@@ -23,8 +23,8 @@ const ListOfEvents = () => {
     useEffect(() => {
         const getAllEvents = async () => {
             try {
-                const { edata } = await axios("https://39480cf6-d2ac-44de-b113-ce52a5b8e509.mock.pstmn.io/api/events")
-                let eventsData = edata.map(e => ({ ...e, dropActivities: [] }))
+                const { data } = await axios("http://tfams429.dev.triomics.in/api/events")
+                let eventsData = data.items.map(e => ({ ...e, dropActivities: [] }))
                 actions.setEvents(eventsData)
             }
             catch (e) {
@@ -94,7 +94,7 @@ const ListOfEvents = () => {
             />
             <EventContainer>
                 {events.length !== 0 ? events.map(event => {
-                    let isSelected = store.selectedEvent.id === event.id ? true : false
+                    let isSelected = store.selectedEvent.id === event.id ? "true" : "false"
                     return (
                         <Event key={event.id} disablePadding isselected={isSelected}>
                             <EventItemButton onClick={(e) => handleEventSelection(event.id)}>

@@ -1,6 +1,4 @@
-import { createContext, useState, useEffect } from "react";
-import { activities as activitiesDummy } from "./dummy/activities"
-import axios from 'axios'
+import { createContext, useState } from "react";
 
 export const AppContext = createContext(null);
 
@@ -16,28 +14,6 @@ export const ContextWrapper = (props) => {
             dropActivities: [],
         },
     });
-
-    useEffect(() => {
-        const getAllActivities = async () => {
-            try {
-                const { adata } = await axios("https://39480cf6-d2ac-44de-b113-ce52a5b8e509.mock.pstmn.io/api/activities")
-                let activityData = adata.map(e => ({ ...e, id: toString(e.id) }))
-                setStore(s => ({
-                    ...s,
-                    activities: activityData,
-                }))
-            }
-            catch (e) {
-                console.log(e)
-                let activityData = activitiesDummy.map(e => ({ ...e, id: e.id.toString() }))
-                setStore(s => ({
-                    ...s,
-                    activities: activityData,
-                }))
-            }
-        }
-        getAllActivities()
-    }, [setStore])
 
     // eslint-disable-next-line
     const [actions, setActions] = useState({
@@ -62,7 +38,6 @@ export const ContextWrapper = (props) => {
         removeActivity: id => setStore(s => ({ ...s, activities: s.activities.filter(a => a.id !== id) })),
         removeDropActivityFromSelectedEvent: id => setStore(s => {
             let mappedActivities = s.selectedEvent.dropActivities.filter(a => a.id !== id)
-            console.log("I came here")
             return ({
                 ...s,
                 selectedEvent: {

@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { NavLink as Link } from "react-router-dom";
+import { Button } from "@mui/material";
+import { styled as muiStyled } from '@mui/material/styles';
 
 export const Nav = styled.nav`
     height: 45px;
@@ -47,4 +49,8 @@ export const Logo = styled.div`
 export const LogoImage = styled.img`
     height: 100%;
     width: 100%;
+`
+
+export const DummyDataButton = muiStyled(Button)`
+
 `

@@ -9,6 +9,7 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import axios from 'axios';
 import { activities as activitiesDummy } from "./../../dummy/activities"
+import { v4 as uuid } from 'uuid';
 
 const ListOfActivites = (props) => {
 
@@ -62,8 +63,8 @@ const ListOfActivites = (props) => {
     useEffect(() => {
         const getAllActivities = async () => {
             try {
-                const { adata } = await axios("https://39480cf6-d2ac-44de-b113-ce52a5b8e509.mock.pstmn.io/api/activities")
-                let activityData = adata.map(e => ({ ...e, id: toString(e.id) }))
+                const { data } = await axios("http://tfams429.dev.triomics.in/api/activities")
+                let activityData = data.items.map(e => ({ ...e, id: uuid() }))
                 actions.setActivities(activityData)
             }
             catch (e) {

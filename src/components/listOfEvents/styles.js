@@ -34,8 +34,8 @@ export const List = muiStyled(list)``
 export const Event = muiStyled(listitem)`
     //border: 1px solid black;
     margin: 5px 0;
-    background: ${props => props.isselected ? "black" : "#CCF3EE"};
-    color: ${props => props.isselected ? "white" : "black"};
+    background: ${props => props.isselected === "true" ? "black" : "#CCF3EE"};
+    color: ${props => props.isselected === "true" ? "white" : "black"};
 `
 export const EventItemButton = muiStyled(listitembutton)``
 export const EventItemText = muiStyled(ListItemText)``
