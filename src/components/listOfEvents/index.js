@@ -23,7 +23,7 @@ const ListOfEvents = () => {
     useEffect(() => {
         const getAllEvents = async () => {
             try {
-                const { data } = await axios("//tfams429.dev.triomics.in/api/events")
+                const { data } = await axios("http://tfams429.dev.triomics.in/api/events")
                 let eventsData = data.items.map(e => ({ ...e, dropActivities: [] }))
                 actions.setEvents(eventsData)
             }
